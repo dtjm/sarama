@@ -1240,7 +1240,7 @@ func (b *Broker) authenticateViaSASLv1() error {
 		} else {
 			name = string(b.conf.Net.SASL.Mechanism)
 		}
-		handshakeRequest := &SaslHandshakeRequest{Mechanism: string(name), Version: b.conf.Net.SASL.Version}
+		handshakeRequest := &SaslHandshakeRequest{Mechanism: name, Version: b.conf.Net.SASL.Version}
 		handshakeResponse := new(SaslHandshakeResponse)
 		prom := makeResponsePromise(handshakeResponse.version())
 
