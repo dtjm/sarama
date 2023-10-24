@@ -89,7 +89,7 @@ func TestSyncProducerTransactional(t *testing.T) {
 	findCoordinatorResponse := new(FindCoordinatorResponse)
 	findCoordinatorResponse.Coordinator = client.Brokers()[0]
 	findCoordinatorResponse.Version = 1
-	seedBroker.Returns(findCoordinatorResponse)
+	leader.Returns(findCoordinatorResponse)
 
 	initProducerIdResponse := new(InitProducerIDResponse)
 	leader.Returns(initProducerIdResponse)
@@ -271,6 +271,7 @@ func TestSyncProducerToNonExistingTopic(t *testing.T) {
 	}
 
 	metadataResponse = new(MetadataResponse)
+	metadataResponse.AddBroker(broker.Addr(), broker.BrokerID())
 	metadataResponse.AddTopic("unknown", ErrUnknownTopicOrPartition)
 	broker.Returns(metadataResponse)
 
